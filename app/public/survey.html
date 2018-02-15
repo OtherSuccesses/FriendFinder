@@ -16,7 +16,7 @@
 	<div>
 		<section>
 			<h3>I make friends easily</h3>
-			<select data-placeholder="" id="question1">
+			<select data-placeholder="" class = "survey-question" id="question1">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -26,7 +26,7 @@
 		</section>
 		<section>
 			<h3>I have a vivid imagination</h3>
-			<select data-placeholder="" id="question2">
+			<select data-placeholder="" class = "survey-question" id="question2">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -36,7 +36,7 @@
 		</section>
 		<section>
 			<h3>I'm a worrier</h3>
-			<select data-placeholder="" id="question3">
+			<select data-placeholder="" class = "survey-question" id="question3">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -46,7 +46,7 @@
 		</section>
 		<section>
 			<h3>I believe in the importance of art</h3>
-			<select data-placeholder="" id="question4">
+			<select data-placeholder="" class = "survey-question" id="question4">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -56,7 +56,7 @@
 		</section>
 		<section>
 			<h3>I easily get angry</h3>
-			<select data-placeholder="" id="question5">
+			<select data-placeholder="" class = "survey-question" id="question5">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -66,7 +66,7 @@
 		</section>
 		<section>
 			<h3>I like to be in charge</h3>
-			<select data-placeholder="" id="question6">
+			<select data-placeholder="" class = "survey-question" id="question6">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -76,7 +76,7 @@
 		</section>
 		<section>
 			<h3>I experience intense emotions</h3>
-			<select data-placeholder="" id="question7">
+			<select data-placeholder="" class = "survey-question" id="question7">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -86,7 +86,7 @@
 		</section>
 		<section>
 			<h3>I'm prone to depression</h3>
-			<select data-placeholder="" id="question8">
+			<select data-placeholder="" class = "survey-question" id="question8">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -96,7 +96,7 @@
 		</section>
 		<section>
 			<h3>I want to have new experiences</h3>
-			<select data-placeholder="" id="question9">
+			<select data-placeholder="" class = "survey-question" id="question9">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -106,7 +106,7 @@
 		</section>
 		<section>
 			<h3>I like to be active</h3>
-			<select data-placeholder="" id="question10">
+			<select data-placeholder="" class = "survey-question" id="question10">
 				<option value="1">1 (Very False)</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -115,7 +115,48 @@
 			</select>
 		</section>
 	</div>
-	<button>Submit</button>
+	<button id = "submit">Submit</button>
+	<script>
+		var checkSubmit = function(){
+			var selected = false;
+			$(".survey-question").each(function(){
+				if($(this).val() !== ""){
+					selected = true;
+				}
+			});
+			return selected;
+		}
+
+		$(document).ready(function(){
+			var data = {};
+			$("#submit").on("click", function(event){
+				event.preventDefault(function(){
+					if(checkSubmit()){
+						data = {
+							'name': $("#name").val().trim(),
+							'scores': []
+						}
+						for (var i = 1; i <= 10; i++){
+							var score = $("#question" + i).val();
+							data.scores.push(score);
+						}
+					}
+				});
+			//
+				$.post(window.location.origin + "/api/friends", data, function(req, res){
+					console.log(req);
+					console.log(res.JSON);
+				});
+
+				$.get("/bestFriend", function(req, res){
+					$("#bestMatchName").text(req.name);
+					$("#bestMatchImg").attr("src", req.img).attr("alt", req.name);
+					$("#modal").removeClass("hidden");
+				});
+			});
+		});
+
+	</script>
 </body>
 </html>
-
+		
