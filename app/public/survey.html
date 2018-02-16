@@ -130,30 +130,29 @@
 		$(document).ready(function(){
 			var data = {};
 			$("#submit").on("click", function(event){
-				event.preventDefault(function(){
-					if(checkSubmit()){
-						data = {
-							'name': $("#name").val().trim(),
-							'scores': []
-						}
-						for (var i = 1; i <= 10; i++){
-							var score = $("#question" + i).val();
-							data.scores.push(score);
-						}
+				event.preventDefault();
+				if(checkSubmit()){
+					data = {
+						'name': $("#user").val().trim(),
+						'scores': []
 					}
-				});
-			//
-				$.post(window.location.origin + "/api/friends", data, function(req, res){
-					console.log(req);
-					console.log(res.JSON);
-				});
+					for (var i = 1; i <= 10; i++){
+						var score = $("#question" + i).val();
+						data.scores.push(score);
+					}
+					$.post(window.location.origin + "/api/friends", data, function(req, res){
+						console.log(req);
+						console.log(res.JSON);
+					});
 
-				$.get("/bestFriend", function(req, res){
-					$("#bestMatchName").text(req.name);
-					$("#bestMatchImg").attr("src", req.img).attr("alt", req.name);
-					$("#modal").removeClass("hidden");
-				});
+					$.get("/bestFriend", function(req, res){
+						$("#bestMatchName").text(req.name);
+						$("#bestMatchImg").attr("src", req.img).attr("alt", req.name);
+						$("#modal").removeClass("hidden");
+					});
+				}
 			});
+			//
 		});
 
 	</script>

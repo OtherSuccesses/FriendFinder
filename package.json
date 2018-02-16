@@ -1,0 +1,31 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "Small app to determine fake friends",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OtherSuccesses/FriendFinder.git"
+  },
+  "keywords": [
+    "Friend",
+    "Finder",
+    "JavaScript"
+  ],
+  "author": "Vytas Rudzinskas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OtherSuccesses/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/OtherSuccesses/FriendFinder#readme"
+}
