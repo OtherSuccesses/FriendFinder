@@ -4,7 +4,7 @@
 	<title>Friend Finder Survey</title>
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery.js"></script>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<h1>Survey</h1>
@@ -114,8 +114,19 @@
 				<option value="5">5 (Very True)</option>
 			</select>
 		</section>
+		<button id = "submit">Submit</button>
+		<div id = "modal" class="hidden">
+		<div id = "modal-header">
+		</div>
+		<img id = "match-img">
+		<div id = "modal-body">
+		</div>
+		<button id = "modal-close">Close</button>
+		</div>
 	</div>
-	<button id = "submit">Submit</button>
+
+
+
 	<script>
 		var checkSubmit = function(){
 			var selected = false;
@@ -140,19 +151,23 @@
 						var score = $("#question" + i).val();
 						data.scores.push(score);
 					}
-					$.post(window.location.origin + "/api/friends", data, function(req, res){
-						console.log(req);
-						console.log(res.JSON);
+					console.log(data);
+					var currentUrl=window.location.origin;
+					$.post(currentUrl + "/api/friends", data, function(req, res){
 					});
 
-					$.get("/bestFriend", function(req, res){
-						$("#bestMatchName").text(req.name);
-						$("#bestMatchImg").attr("src", req.img).attr("alt", req.name);
-						$("#modal").removeClass("hidden");
-					});
+					$.get("/bestFriends", function(req, res){
+						console.log("reqbody" + req.name);
+					 	$("#modal-header").text("Your match is: " + req.name);
+					 	$("#match-img").attr("src", req.image).attr("alt", req.name);
+					 	$("#modal").removeClass("hidden");
+					 });
 				}
 			});
-			//
+			$("#modal-close").on("click", function(event){
+				$("#user").val('');
+				$("#modal").addClass("hidden");
+			})
 		});
 
 	</script>
