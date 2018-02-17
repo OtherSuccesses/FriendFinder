@@ -35,6 +35,10 @@ button{
 	border-radius:10px;
 }
 
+img{
+	height:250px;
+	margin:auto;
+}
 #modal-header{
 	margin:15px;
 	font-size: 32px;
